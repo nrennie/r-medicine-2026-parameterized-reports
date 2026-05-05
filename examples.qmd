@@ -1,5 +1,7 @@
 ---
 title: "Examples"
+execute: 
+  warning: false
 ---
 
 ```{r}
@@ -115,7 +117,7 @@ continent_plot("Europe")
 
 Here's a file, `example.qmd`, we'll use as a template for our report:
 
-::: {.callout-warning title="example.qmd"}
+::: {.callout-note title="example.qmd" icon=false}
 
 ````
 ---
@@ -126,7 +128,7 @@ execute:
 
 ```{{r}}
 #| label: load-pkgs
-#| message: false
+#| warning: false
 library(gapminder)
 library(dplyr)
 library(ggplot2)
@@ -159,7 +161,7 @@ params:
 
 ```{{r}}
 #| label: load-pkgs
-#| message: false
+#| warning: false
 library(gapminder)
 library(dplyr)
 library(ggplot2)
@@ -190,7 +192,7 @@ params:
 
 ```{{r}}
 #| label: load-pkgs
-#| message: false
+#| warning: false
 library(gapminder)
 library(dplyr)
 library(ggplot2)
@@ -235,7 +237,7 @@ params:
 
 ```{{r}}
 #| label: load-pkgs
-#| message: false
+#| warning: false
 library(gapminder)
 library(dplyr)
 library(ggplot2)
@@ -309,7 +311,7 @@ params:
 
 ```{{r}}
 #| label: load-pkgs
-#| message: false
+#| warning: false
 library(gapminder)
 library(dplyr)
 library(ggplot2)
@@ -354,7 +356,7 @@ params:
 
 ```{{r}}
 #| label: load-pkgs
-#| message: false
+#| warning: false
 library(gapminder)
 library(dplyr)
 library(ggplot2)
@@ -399,7 +401,7 @@ params:
 
 ```{{r}}
 #| label: load-pkgs
-#| message: false
+#| warning: false
 library(gapminder)
 library(dplyr)
 library(ggplot2)
@@ -410,7 +412,7 @@ This is a report using the [Gapminder](https://www.gapminder.org/data/) data. @f
 
 ```{{r}}
 #| label: fig-life-exp
-#| fig-cap: !expr 'paste("Life expectancy in ", params$choose_continent)'
+#| fig-cap: !expr 'paste0("Life expectancy in ", params$choose_continent)'
 continent_plot <- function(choose_continent, data = gapminder) {
   # Filter data
   gapminder_continent <- data |>
@@ -502,9 +504,295 @@ This keeps any plots created embedded within the HTML document, instead of in a 
 
 ### Example 5: Conditional content
 
-Coming soon!
+<details>
+<summary>See example</summary>
+
+* Split out the plot code from the plot output into two code blocks.
+* Remember to keep the figure caption with the plot output.
+* The default format is `html`. Check what it looks like in `pdf` by specifying the format.
+* The cross references don't work quite correctly out of the box. We have two code blocks with the same figure reference, even though one is hidden. Switch to div syntax.
+
+````
+---
+title: "Gapminder Report on Life Expectancy in `r params$choose_continent`"
+format: pdf
+execute: 
+  echo: false
+params:
+  choose_continent: "Europe"
+---
+
+```{{r}}
+#| label: load-pkgs
+#| warning: false
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+library(glue)
+library(plotly)
+```
+
+This is a report using the [Gapminder](https://www.gapminder.org/data/) data. @fig-life-exp shows a box plot of how the life expectancy in `r params$choose_continent` has changed over time.
+
+```{{r}}
+continent_plot <- function(choose_continent, data = gapminder) {
+  # Filter data
+  gapminder_continent <- data |>
+    filter(continent == choose_continent)
+  # Plot
+  g <- ggplot(data = gapminder_continent) +
+    geom_boxplot(
+      mapping = aes(x = factor(year), y = lifeExp)
+    ) +
+    labs(
+      x = NULL, y = "Life Expectancy (years)",
+      title = glue("Life Expectancy in {params$choose_continent}")
+    )
+  return(g)
+}
+plot_output <- continent_plot(params$choose_continent)
+```
+
+::: {#fig-life-exp fig-cap="`r paste0('Life expectancy in ', params$choose_continent)`"}
+
+::: {.content-visible when-format="html"}
+
+```{{r}}
+ggplotly(plot_output)
+```
+
+:::
+
+::: {.content-visible unless-format="html"}
+
+```{{r}}
+plot_output
+```
+
+:::
+
+:::
+
+
+````
+
+Make further edits to add a sentence when the continent is Europe.
+
+````
+---
+title: "Gapminder Report on Life Expectancy in `r params$choose_continent`"
+execute: 
+  echo: false
+params:
+  choose_continent: "Europe"
+---
+
+```{{r}}
+#| label: load-pkgs
+#| warning: false
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+library(glue)
+library(plotly)
+```
+
+This is a report using the [Gapminder](https://www.gapminder.org/data/) data. @fig-life-exp shows a box plot of how the life expectancy in `r params$choose_continent` has changed over time.
+
+```{{r}}
+continent_plot <- function(choose_continent, data = gapminder) {
+  # Filter data
+  gapminder_continent <- data |>
+    filter(continent == choose_continent)
+  # Plot
+  g <- ggplot(data = gapminder_continent) +
+    geom_boxplot(
+      mapping = aes(x = factor(year), y = lifeExp)
+    ) +
+    labs(
+      x = NULL, y = "Life Expectancy (years)",
+      title = glue("Life Expectancy in {params$choose_continent}")
+    )
+  return(g)
+}
+plot_output <- continent_plot(params$choose_continent)
+```
+
+::: {#fig-life-exp fig-cap="`r paste0('Life expectancy in ', params$choose_continent)`"}
+
+::: {.content-visible when-format="html"}
+
+```{{r}}
+ggplotly(plot_output)
+```
+
+:::
+
+::: {.content-visible unless-format="html"}
+
+```{{r}}
+plot_output
+```
+
+:::
+
+:::
+
+```{{r}}
+latest_begin <- if (params$choose_continent == "Europe") "::: {.content-visible}"
+latest_end <- if (params$choose_continent == "Europe") ":::"
+```
+
+`r latest_begin`
+
+This is the most recent data available.
+
+`r latest_end`
+
+
+````
+
+</details>
 
 ### Example 6: Parameterized report sections
 
-Coming soon!
+<details>
+<summary>See example</summary>
+
+Create a .R file and put the function in it. You don't need to make any changes.
+
+```{r}
+#| eval: false
+#| echo: true
+#| filename: setup.R
+continent_plot <- function(choose_continent, data = gapminder) {
+  # Filter data
+  gapminder_continent <- data |>
+    filter(continent == choose_continent)
+  # Plot
+  g <- ggplot(data = gapminder_continent) +
+    geom_boxplot(
+      mapping = aes(x = factor(year), y = lifeExp)
+    ) +
+    labs(
+      x = NULL, y = "Life Expectancy (years)",
+      title = glue("Life Expectancy in {params$choose_continent}")
+    )
+  return(g)
+}
+```
+
+The use `file:` to load it in.
+
+````
+---
+title: "Gapminder Report on Life Expectancy in `r params$choose_continent`"
+execute: 
+  echo: false
+params:
+  choose_continent: "Europe"
+---
+
+```{{r}}
+#| label: load-pkgs
+#| warning: false
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+library(glue)
+```
+
+```{{r}}
+#| file: setup.R
+```
+
+This is a report using the [Gapminder](https://www.gapminder.org/data/) data. @fig-life-exp shows a box plot of how the life expectancy in `r params$choose_continent` has changed over time.
+
+```{r}
+#| label: fig-life-exp
+#| fig-cap: !expr 'paste("Life expectancy in ", params$choose_continent)'
+continent_plot(params$choose_continent)
+```
+
+
+````
+
+Create a child document containing a section heading and the plot code.
+
+::: {.callout-note title="_child.qmd" icon=false}
+
+## `r params$choose_continent`
+
+```{{r}}
+continent_plot(params$choose_continent)
+```
+
+:::
+
+Then call it in the main file with `knit_child()`, and check it works for one continent. Set output to `asis` so that Quarto renders the Markdown content correctly, and run it with `quiet = TRUE` to stop the rendering messages from coming through.
+
+````
+---
+title: "Gapminder Report on Life Expectancy
+execute: 
+  echo: false
+---
+
+```{{r}}
+#| label: load-pkgs
+#| warning: false
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+library(glue)
+```
+
+```{{r}}
+#| file: setup.R
+```
+
+```{{r}}
+#| output: asis
+params <- list(choose_continent = "Europe")
+a <- knitr::knit_child('_child.qmd', quiet = TRUE)
+cat(a, sep='\n')
+```
+
+````
+
+The we can loop over all continents.
+
+````
+---
+title: "Gapminder Report on Life Expectancy
+execute: 
+  echo: false
+---
+
+```{{r}}
+#| label: load-pkgs
+#| warning: false
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+library(glue)
+```
+
+```{{r}}
+#| file: setup.R
+```
+
+```{{r}}
+#| output: asis
+all_continents <- as.character(unique(gapminder$continent))
+for (i in seq_len(length(all_continents))) {
+  params <- list(choose_continent = all_continents[i])
+  a <- knitr::knit_child('_child.qmd', quiet = TRUE)
+  cat(a, sep='\n')
+}
+```
+
+````
+
+</details>
 
