@@ -17,6 +17,7 @@ We'll be using the following R packages:
 * ggplot2
 * glue
 * purrr
+* plotly
 * quarto
 * tinytable
 

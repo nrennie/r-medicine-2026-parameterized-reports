@@ -18,6 +18,7 @@ We’ll be using the following R packages:
 * gapminder
 * ggplot2
 * glue
+* plotly
 * purrr
 * quarto
 * tinytable
@@ -49,7 +50,15 @@ You should also have Quarto CLI installed, alongside R itself.
   * Exercise
   * Exercise solutions and questions
 * 10 minute break
-* Part 5: TBC (25 mins)
-* Part 6: TBC (25 mins)
+* Part 5: Conditional content (25 mins)
+  * Slides
+  * Live Demo (conditional content based on output format and/or parameters)
+  * Exercise
+  * Exercise solutions and questions
+* Part 6: Parameterized report sections (25 mins)
+  * Slides
+  * Live Demo (one report with many similar plots or sections)
+  * Exercise
+  * Exercise solutions and questions
 * Wrap up (5 mins)
 

@@ -93,7 +93,7 @@ Course website: [nrennie.rbind.io/r-medicine-2026-parameterized-reports](https:/
 
 ![](images/website.png){fig-align="center" fig-alt="Screenshot of course website" width=80%}
 
-# Parameterized plots with {ggplot2} {background-color="#151C28" background-image="images/bg.png"}
+# Parameterized plots with `ggplot2` {background-color="#151C28" background-image="images/bg.png"}
 
 ## What do I mean by parameterized plots?
 
@@ -351,63 +351,6 @@ You can also execute R code in figure captions:
 hist(gapminder$lifeExp)
 ```
 
-## Conditional content
-
-Display content only for a specific format:
-
-```
-::: {.content-visible when-format="html"}
-
-Will only appear in HTML.
-
-:::
-```
-
-<br>
-
-```
-::: {.content-hidden unless-format="pdf"}
-
-Will be hidden unless it's a PDF document.
-
-:::
-```
-
-## Conditional content
-
-Display content only for a specific parameter value:
-
-```{r}
-#| echo: false
-#| eval: true
-params <- list()
-params$hide <- '`r if (params$hide_answers) "::: {.content-hidden}"`'
-params$hide2 <- '`r if (params$hide_answers) ":::"`'
-```
-
-```
-`r params$hide`
-
-The answer is 4.
-
-`r params$hide2`
-```
-
-## Quarto profiles
-
-* Main project configuration: `_quarto.yml`
-
-* `solutions` profile configuration: `_quarto-solutions.yml`
-
-```
-::: {.content-hidden when-profile="solutions"}
-
-This content will be hidden in the advanced profile
-
-:::
-
-```
-
 ## Live Demo!
 
 * Writing inline R code
@@ -511,25 +454,133 @@ clock(10)
 
 # Break {background-color="#F2F4F8" background-image="images/bg-light.png"}
 
-# Next section {background-color="#151C28" background-image="images/bg.png"}
+# Conditional content {background-color="#151C28" background-image="images/bg.png"}
+
+## Conditional on output format
+
+Display content only for a specific format:
+
+```
+::: {.content-visible when-format="html"}
+
+Will only appear in HTML.
+
+:::
+```
+
+<br>
+
+```
+::: {.content-hidden unless-format="pdf"}
+
+Will be hidden unless it's a PDF document.
+
+:::
+```
+
+## Conditional on parameters (or data values)
+
+Display content only for a specific parameter value:
+
+```{r}
+#| echo: false
+#| eval: true
+params <- list()
+params$hide <- '`r if (params$hide_answers) "::: {.content-hidden}"`'
+params$hide2 <- '`r if (params$hide_answers) ":::"`'
+```
+
+```
+`r params$hide`
+
+The answer is 4.
+
+`r params$hide2`
+```
+
+## Quarto profiles
+
+* Main project configuration: `_quarto.yml`
+
+* `solutions` profile configuration: `_quarto-solutions.yml`
+
+```
+::: {.content-hidden when-profile="solutions"}
+
+This content will be hidden in the advanced profile
+
+:::
+
+```
 
 ## Live Demo!
 
-Coming soon!
+* Interactive vs static charts in HTML vs PDF
+
+* Showing content based on parameters
 
 ## Exercise 5
 
-Coming soon!
+* Edit the .qmd file from Exercise 3. When the format is HTML show an interactive chart using `plotly`, otherwise show a static chart.
 
-# Next section {background-color="#151C28" background-image="images/bg.png"}
+* When the year parameter is 2007, add a sentence to state that it is the most recent data available.
+
+* **Bonus**: Can you edit the logic you applied to check programmatically if it's the last year in the data?
+
+# Parameterized report sections {background-color="#151C28" background-image="images/bg.png"}
+
+## Ways to re-use content
+
+You can use the following features to re-use content, either across documents or within different sections of a document.
+
+* `file`
+* `include`
+* `knit_child()`
+
+## `#| file:`
+
+```{r}
+#| file: ../R/utils.R
+#| echo: fenced
+```
+
+* Source a .R file within your Quarto script
+* Good way to separate out long (reusable) pieces of code e.g. functions
+* Nice way to load set up code across each document e.g. themes
+
+## `include`
+
+* Built-in Quarto shortcode {{{< include _content.qmd >}}}
+* Equivalent to copying and pasting the text from the included file into the main file
+* Need to be careful with e.g. image paths in included document
+* You can also `include` .R files (but don't have code block options in the same way)
+* Use an underscore (_) prefix for the included file names means Quarto ignores them properly.
+
+## Child documents
+
+* Similar to `include` i.e. taking one .qmd file and placing its contents inside another
+* Add documents with the `knit_child()` function
+* Since it's an R function, we can loop over parameters
+
+::: {.callout-warning}
+
+* This is a `knitr` feature, not a Quarto feature
+* Doesn't always trigger auto-re-rendering when the child file changes
+
+:::
 
 ## Live Demo!
 
-Coming soon!
+* Loading R scripts
+* Working with includes
+* Knitting child documents
 
 ## Exercise 6
 
-Coming soon!
+* Separate out the `barchart_year()` function into a separate R script.
+* Load it in using `file:` instead.
+* Create a child file containing the year as a section heading, followed by the chart.
+* Render document with a section for each year in the data.
 
 ## Workshop resources
 

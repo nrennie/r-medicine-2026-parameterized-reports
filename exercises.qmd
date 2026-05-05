@@ -530,13 +530,23 @@ walk(
 </details>
 
 
-### Exercise 5
+### Exercise 5: Conditional content
 
-Coming soon!
+1. Edit the .qmd file from Exercise 3. When the format is HTML show an interactive chart using `plotly`, otherwise show a static chart.
 
-### Exercise 6
+2. When the year parameter is 2007, add a sentence to state that it is the most recent data available.
 
-Coming soon!
+3. **Bonus**: Can you edit the logic you applied in question 2, to check programmatically if it's the last year in the data?
+
+### Exercise 6: Parameterized report sections
+
+1. Separate out the `barchart_year()` function into a separate R script.
+
+2. Load it in using `file:` instead.
+
+3. Create a child file containing the year as a section heading, followed by the chart.
+
+4. Render document with a section for each year in the data.
 
 
 

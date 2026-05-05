@@ -500,11 +500,11 @@ This keeps any plots created embedded within the HTML document, instead of in a 
 
 </details>
 
-### Example 5
+### Example 5: Conditional content
 
 Coming soon!
 
-### Example 6
+### Example 6: Parameterized report sections
 
 Coming soon!
 
