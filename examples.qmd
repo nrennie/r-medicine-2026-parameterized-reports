@@ -643,11 +643,11 @@ latest_begin <- if (params$choose_continent == "Europe") "::: {.content-visible}
 latest_end <- if (params$choose_continent == "Europe") ":::"
 ```
 
-`r latest_begin`
+`` `r "\u0060r latest_begin\u0060"` ``
 
 This is the most recent data available.
 
-`r latest_end`
+`` `r "\u0060r latest_end\u0060"` ``
 
 
 ````
@@ -721,11 +721,15 @@ Create a child document containing a section heading and the plot code.
 
 ::: {.callout-note title="_child.qmd" icon=false}
 
+````
+
 ## `r params$choose_continent`
 
 ```{{r}}
 continent_plot(params$choose_continent)
 ```
+
+````
 
 :::
 

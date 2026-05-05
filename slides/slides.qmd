@@ -93,7 +93,7 @@ Course website: [nrennie.rbind.io/r-medicine-2026-parameterized-reports](https:/
 
 ![](images/website.png){fig-align="center" fig-alt="Screenshot of course website" width=80%}
 
-# Parameterized plots with `ggplot2` {background-color="#151C28" background-image="images/bg.png"}
+# Parameterized plots with {ggplot2} {background-color="#151C28" background-image="images/bg.png"}
 
 ## What do I mean by parameterized plots?
 
@@ -539,12 +539,7 @@ You can use the following features to re-use content, either across documents or
 
 ## `#| file:`
 
-```{r}
-#| file: ../R/utils.R
-#| echo: fenced
-```
-
-* Source a .R file within your Quarto script
+* Source a .R file within your Quarto script `#| file: ../R/utils.R`
 * Good way to separate out long (reusable) pieces of code e.g. functions
 * Nice way to load set up code across each document e.g. themes
 
