@@ -643,11 +643,11 @@ latest_begin <- if (params$choose_continent == "Europe") "::: {.content-visible}
 latest_end <- if (params$choose_continent == "Europe") ":::"
 ```
 
-`` `r "\u0060r latest_begin\u0060"` ``
+`r "\u0060r latest_begin\u0060"`
 
 This is the most recent data available.
 
-`` `r "\u0060r latest_end\u0060"` ``
+`r "\u0060r latest_end\u0060"`
 
 
 ````

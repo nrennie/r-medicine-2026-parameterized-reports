@@ -690,11 +690,11 @@ latest_begin <- if (params$choose_year == 2007) "::: {.content-visible}"
 latest_end <- if (params$choose_year == 2007) ":::"
 ```
 
-`` `r "\u0060r latest_begin\u0060"` ``
+`r "\u0060r latest_begin\u0060"`
 
 This is the most recent data available.
 
-`` `r "\u0060r latest_end\u0060"` ``
+`r "\u0060r latest_end\u0060"`
 
 
 ````
@@ -715,7 +715,7 @@ latest_end <- if (params$choose_year == last_year) ":::"
 ```
 
 
-<details>
+</details>
 
 ### Exercise 6: Parameterized report sections
 
