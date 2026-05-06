@@ -537,6 +537,78 @@ walk(
 <details>
 <summary>Solution</summary>
 
+````
+---
+title: "Gapminder Report: `r params$choose_year`"
+execute: 
+  echo: false
+params:
+  choose_year: 1952
+---
+
+```{{r}}
+#| label: load-pkgs
+#| warning: false
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+library(glue)
+library(plotly)
+```
+
+This is a report using the [Gapminder](https://www.gapminder.org/data/) data. @fig-life-exp shows a plot of the median life expectancy in the year `r params$choose_year` for each continent.
+
+```{{r}}
+barchart_year <- function(
+    choose_year, fill = "blue", data = gapminder) {
+  # Median life expectancy per continent
+  gapminder_year <- gapminder |>
+    filter(year == choose_year) |>
+    group_by(continent) |>
+    summarise(
+      median_lifeExp = median(lifeExp)
+    )
+  # Bar chart
+  g <- ggplot(data = gapminder_year) +
+    geom_col(
+      mapping = aes(
+        x = median_lifeExp,
+        y = reorder(continent, median_lifeExp)
+      ),
+      fill = fill
+    ) +
+    labs(
+      x = "Median Life Expectancy (years)", y = NULL,
+      title = glue("Life Expectancy in {choose_year}")
+    )
+  return(g)
+}
+plot_output <- barchart_year(params$choose_year)
+```
+
+::: {#fig-life-exp fig-cap="`r paste0('Life expectancy in ', params$choose_year)`"}
+
+::: {.content-visible when-format="html"}
+
+```{{r}}
+ggplotly(plot_output)
+```
+
+:::
+
+::: {.content-visible unless-format="html"}
+
+```{{r}}
+plot_output
+```
+
+:::
+
+:::
+
+
+````
+
 </details>
 
 2. When the year parameter is 2007, add a sentence to state that it is the most recent data available.
@@ -544,9 +616,106 @@ walk(
 <details>
 <summary>Solution</summary>
 
+````
+---
+title: "Gapminder Report: `r params$choose_year`"
+execute: 
+  echo: false
+params:
+  choose_year: 1952
+---
+
+```{{r}}
+#| label: load-pkgs
+#| warning: false
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+library(glue)
+library(plotly)
+```
+
+This is a report using the [Gapminder](https://www.gapminder.org/data/) data. @fig-life-exp shows a plot of the median life expectancy in the year `r params$choose_year` for each continent.
+
+```{{r}}
+barchart_year <- function(
+    choose_year, fill = "blue", data = gapminder) {
+  # Median life expectancy per continent
+  gapminder_year <- gapminder |>
+    filter(year == choose_year) |>
+    group_by(continent) |>
+    summarise(
+      median_lifeExp = median(lifeExp)
+    )
+  # Bar chart
+  g <- ggplot(data = gapminder_year) +
+    geom_col(
+      mapping = aes(
+        x = median_lifeExp,
+        y = reorder(continent, median_lifeExp)
+      ),
+      fill = fill
+    ) +
+    labs(
+      x = "Median Life Expectancy (years)", y = NULL,
+      title = glue("Life Expectancy in {choose_year}")
+    )
+  return(g)
+}
+plot_output <- barchart_year(params$choose_year)
+```
+
+::: {#fig-life-exp fig-cap="`r paste0('Life expectancy in ', params$choose_year)`"}
+
+::: {.content-visible when-format="html"}
+
+```{{r}}
+ggplotly(plot_output)
+```
+
+:::
+
+::: {.content-visible unless-format="html"}
+
+```{{r}}
+plot_output
+```
+
+:::
+
+:::
+
+```{{r}}
+latest_begin <- if (params$choose_year == 2007) "::: {.content-visible}"
+latest_end <- if (params$choose_year == 2007) ":::"
+```
+
+`` `r "\u0060r latest_begin\u0060"` ``
+
+This is the most recent data available.
+
+`` `r "\u0060r latest_end\u0060"` ``
+
+
+````
+
 </details>
 
 3. **Bonus**: Can you edit the logic you applied in question 2, to check programmatically if it's the last year in the data?
+
+<details>
+<summary>Solution</summary>
+
+```{r}
+#| eval: false
+#| echo: true
+last_year <- max(gapminder$year)
+latest_begin <- if (params$choose_year == last_year) "::: {.content-visible}"
+latest_end <- if (params$choose_year == last_year) ":::"
+```
+
+
+<details>
 
 ### Exercise 6: Parameterized report sections
 
@@ -556,10 +725,6 @@ walk(
 
 <details>
 <summary>Solution</summary>
-
-
-<details>
-<summary>See example</summary>
 
 Create a .R file and put the function in it. You don't need to make any changes.
 
