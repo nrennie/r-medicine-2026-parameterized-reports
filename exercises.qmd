@@ -66,7 +66,7 @@ ggplot(data = gapminder_1952) +
 <summary>Solution</summary>
 
 ```{r}
-#| message: false
+#| warning: false
 library(dplyr)
 library(ggplot2)
 library(glue)
@@ -198,7 +198,7 @@ execute:
 
 ```{{r}}
 #| label: load-pkgs
-#| message: false
+#| warning: false
 library(gapminder)
 library(dplyr)
 library(ggplot2)
@@ -232,7 +232,7 @@ params:
 
 ```{{r}}
 #| label: load-pkgs
-#| message: false
+#| warning: false
 library(gapminder)
 library(dplyr)
 library(ggplot2)
@@ -267,7 +267,7 @@ params:
 
 ```{{r}}
 #| label: load-pkgs
-#| message: false
+#| warning: false
 library(gapminder)
 library(dplyr)
 library(ggplot2)
@@ -330,7 +330,7 @@ params:
 
 ```{{r}}
 #| label: load-pkgs
-#| message: false
+#| warning: false
 library(gapminder)
 library(dplyr)
 library(ggplot2)
@@ -389,7 +389,7 @@ params:
 
 ```{{r}}
 #| label: load-pkgs
-#| message: false
+#| warning: false
 library(gapminder)
 library(dplyr)
 library(ggplot2)
@@ -448,7 +448,7 @@ params:
 
 ```{{r}}
 #| label: load-pkgs
-#| message: false
+#| warning: false
 library(gapminder)
 library(dplyr)
 library(ggplot2)
@@ -534,7 +534,17 @@ walk(
 
 1. Edit the .qmd file from Exercise 3. When the format is HTML show an interactive chart using `plotly`, otherwise show a static chart.
 
+<details>
+<summary>Solution</summary>
+
+</details>
+
 2. When the year parameter is 2007, add a sentence to state that it is the most recent data available.
+
+<details>
+<summary>Solution</summary>
+
+</details>
 
 3. **Bonus**: Can you edit the logic you applied in question 2, to check programmatically if it's the last year in the data?
 
@@ -544,10 +554,140 @@ walk(
 
 2. Load it in using `file:` instead.
 
+<details>
+<summary>Solution</summary>
+
+
+<details>
+<summary>See example</summary>
+
+Create a .R file and put the function in it. You don't need to make any changes.
+
+```{r}
+#| eval: false
+#| echo: true
+#| filename: setup.R
+barchart_year <- function(
+    choose_year, fill = "blue", data = gapminder) {
+  # Median life expectancy per continent
+  gapminder_year <- gapminder |>
+    filter(year == choose_year) |>
+    group_by(continent) |>
+    summarise(
+      median_lifeExp = median(lifeExp)
+    )
+  # Bar chart
+  g <- ggplot(data = gapminder_year) +
+    geom_col(
+      mapping = aes(
+        x = median_lifeExp,
+        y = reorder(continent, median_lifeExp)
+      ),
+      fill = fill
+    ) +
+    labs(
+      x = "Median Life Expectancy (years)", y = NULL,
+      title = glue("Life Expectancy in {choose_year}")
+    )
+  return(g)
+}
+```
+
+The use `file:` to load it in.
+
+````
+---
+title: "Gapminder Report: `r params$choose_year`"
+execute: 
+  echo: false
+params:
+  choose_year: 1952
+---
+
+```{{r}}
+#| label: load-pkgs
+#| warning: false
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+library(glue)
+```
+
+```{{r}}
+#| file: setup.R
+```
+
+This is a report using the [Gapminder](https://www.gapminder.org/data/) data. @fig-life-exp shows a plot of the median life expectancy in the year `r params$choose_year` for each continent.
+
+```{r}
+#| label: fig-life-exp
+#| fig-cap: !expr 'paste("Life expectancy in ", params$choose_continent)'
+barchart_year(params$choose_year)
+```
+
+````
+
+</details>
+
 3. Create a child file containing the year as a section heading, followed by the chart.
+
+<details>
+<summary>Solution</summary>
+
+::: {.callout-note title="_child.qmd" icon=false}
+
+````
+
+## `r params$choose_year`
+
+```{{r}}
+barchart_year(params$choose_year)
+```
+
+````
+
+:::
+
+</details>
 
 4. Render document with a section for each year in the data.
 
+<details>
+<summary>Solution</summary>
+
+````
+---
+title: "Gapminder Report
+execute: 
+  echo: false
+---
+
+```{{r}}
+#| label: load-pkgs
+#| warning: false
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+library(glue)
+```
+
+```{{r}}
+#| file: setup.R
+```
+
+```{{r}}
+#| output: asis
+all_years <- as.character(unique(gapminder$year))
+for (i in seq_len(length(all_years))) {
+  params <- list(choose_year = all_years[i])
+  a <- knitr::knit_child('_child.qmd', quiet = TRUE)
+  cat(a, sep='\n')
+}
+```
+
+````
+
+</details>
 
 
 
