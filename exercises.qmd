@@ -686,8 +686,8 @@ plot_output
 :::
 
 ```{{r}}
-latest_begin <- if (params$choose_year == 2007) "::: {.content-visible}"
-latest_end <- if (params$choose_year == 2007) ":::"
+latest_begin <- if (params$choose_year != 2007) "::: {.content-hidden}"
+latest_end <- if (params$choose_year != 2007) ":::"
 ```
 
 `r "\u0060r latest_begin\u0060"`
@@ -710,8 +710,8 @@ This is the most recent data available.
 #| eval: false
 #| echo: true
 last_year <- max(gapminder$year)
-latest_begin <- if (params$choose_year == last_year) "::: {.content-visible}"
-latest_end <- if (params$choose_year == last_year) ":::"
+latest_begin <- if (params$choose_year != last_year) "::: {.content-hidden}"
+latest_end <- if (params$choose_year != last_year) ":::"
 ```
 
 

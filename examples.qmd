@@ -639,15 +639,15 @@ plot_output
 :::
 
 ```{{r}}
-latest_begin <- if (params$choose_continent == "Europe") "::: {.content-visible}"
-latest_end <- if (params$choose_continent == "Europe") ":::"
+eur_begin <- if (params$choose_continent != "Europe") "::: {.content-hidden}"
+eur_end <- if (params$choose_continent != "Europe") ":::"
 ```
 
-`r "\u0060r latest_begin\u0060"`
+`r "\u0060r eur_begin\u0060"`
 
-This is the most recent data available.
+Some caveats about the European data are included here.
 
-`r "\u0060r latest_end\u0060"`
+`r "\u0060r eur_end\u0060"`
 
 
 ````
