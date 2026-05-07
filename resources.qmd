@@ -6,11 +6,67 @@ title: "Resources"
 
 * R for Data Science (Functions): [r4ds.hadley.nz/functions.html](https://r4ds.hadley.nz/functions.html)
 
-* Quarto documentation: [quarto.org/docs/computations/parameters.html](https://quarto.org/docs/computations/parameters.html)
+* Quarto documentation (parameters): [quarto.org/docs/computations/parameters.html](https://quarto.org/docs/computations/parameters.html)
+
+* Quarto documentation (conditional content): [quarto.org/docs/authoring/conditional.html](https://quarto.org/docs/authoring/conditional.html)
 
 * Ah, Ha, Ha, Ha, Parameterise!: [www.cararthompson.com/talks/ah-ha-ha-ha-parameterise](https://www.cararthompson.com/talks/ah-ha-ha-ha-parameterise/)
 
 * Parameterized presentations: [www.jumpingrivers.com/blog/r-parameterised-presentations-quarto](https://www.jumpingrivers.com/blog/r-parameterised-presentations-quarto/)
 
+* Dynamic tabsets: [josh.quarto.pub/posts/2022-11-10-quarto-tabsets-update](https://josh.quarto.pub/posts/2022-11-10-quarto-tabsets-update/2022-11-10-quarto-tabsets-update.html)
+
 * Data science resources: [nrennie.rbind.io/data-science-resources](https://nrennie.rbind.io/data-science-resources/)
+
+### Collaborative editing
+
+A frequently asked question from those thinking about switching to Quarto, is how do they collaborate with (non-technical) colleagues who prefer to use tools like Word/Gooogle Docs with track changes? Here are a few options you may find useful:
+
+* [trackdown](https://claudiozandonella.github.io/trackdown/): R package for collaborative writing and editing of R Markdown or Quarto documents in Google Docs.
+
+* [Quartorium](https://github.com/andjar/quartorium): a collaborative WYSIWYG editor for Quarto
+
+* [Quarto 2](https://quarto.org/docs/blog/posts/2026-04-06-whats-next-quarto-2/): although not yet available, the developers of Quarto are working on a developing a new version of Quarto which will have an in-built collaborative editor to solve this problem!
+
+
+## Questions
+
+**When rendering multiple reports, can I map over multiple (dependent) parameters where only some combinations of the parameters are desired?**
+
+Yes, you can! As long as you have a way of defining what those combinations of parameters are. For example, this selects some different combinations of years and continents from the `gapminder` dataset:
+
+```{r}
+#| eval: false
+#| echo: true
+params_df <- gapminder |>
+  filter(
+    year %in% c(2002, 2007) & continent %in% c("Europe") |
+      year %in% c(1952, 1957) & continent %in% c("Asia", "Americas")
+  ) |>
+  select(continent, year) |>
+  distinct()
+```
+
+You can then use `walk()` from {purrr} in a similar way to the examples, but mapping over each row of your parameter data:
+
+```{r}
+walk(
+  .x = 1:nrow(params_df),
+  .f = ~ quarto_render(
+    input = "example.qmd",
+    output_file = glue("{params_df$continent[.x]}_{params_df$year[.x]}.html"),
+    execute_params = list(
+      choose_continent = params_df$continent[.x],
+      choose_year = params_df$year[.x]
+    )
+  )
+)
+```
+
+
+**If my list of parameters is long, is there a nice way to see how long my code has left to run when generating multiple reports?**
+
+Yes, within `walk()`, set `.progress = TRUE` and this will create a progress bar in the console showing how far through your code is, and an approximate amount of time left. You can also use the [{beepr}](https://cran.r-project.org/web/packages/beepr/index.html) package to get your laptop to beep when the code is finished!
+
+
 
