@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -78,9 +113,11 @@ ul.task-list li input[type="checkbox"] {
 
 
 <meta property="og:title" content="Resources – No more copy and paste! Parameterized plots and reports with R and Quarto">
+<meta property="og:description" content="Workshop materials for the 2026 R/Medicine conference workshop on parameterized plots and reports with R and Quarto.">
 <meta property="og:image" content="assets/img/featured.png">
 <meta property="og:site_name" content="No more copy and paste! Parameterized plots and reports with R and Quarto">
 <meta name="twitter:title" content="Resources – No more copy and paste! Parameterized plots and reports with R and Quarto">
+<meta name="twitter:description" content="Workshop materials for the 2026 R/Medicine conference workshop on parameterized plots and reports with R and Quarto.">
 <meta name="twitter:image" content="assets/img/featured.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -309,7 +346,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#useful-links" id="toc-useful-links" class="nav-link active" data-scroll-target="#useful-links">Useful Links</a></li>
+  <li><a href="#useful-links" id="toc-useful-links" class="nav-link active" data-scroll-target="#useful-links">Useful Links</a>
+  <ul class="collapse">
+  <li><a href="#collaborative-editing" id="toc-collaborative-editing" class="nav-link" data-scroll-target="#collaborative-editing">Collaborative editing</a></li>
+  </ul></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions</a></li>
   </ul>
 </nav>
 </nav>
@@ -344,11 +385,52 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="useful-links">Useful Links</h2>
 <ul>
 <li><p>R for Data Science (Functions): <a href="https://r4ds.hadley.nz/functions.html">r4ds.hadley.nz/functions.html</a></p></li>
-<li><p>Quarto documentation: <a href="https://quarto.org/docs/computations/parameters.html">quarto.org/docs/computations/parameters.html</a></p></li>
+<li><p>Quarto documentation (parameters): <a href="https://quarto.org/docs/computations/parameters.html">quarto.org/docs/computations/parameters.html</a></p></li>
+<li><p>Quarto documentation (conditional content): <a href="https://quarto.org/docs/authoring/conditional.html">quarto.org/docs/authoring/conditional.html</a></p></li>
 <li><p>Ah, Ha, Ha, Ha, Parameterise!: <a href="https://www.cararthompson.com/talks/ah-ha-ha-ha-parameterise/">www.cararthompson.com/talks/ah-ha-ha-ha-parameterise</a></p></li>
 <li><p>Parameterized presentations: <a href="https://www.jumpingrivers.com/blog/r-parameterised-presentations-quarto/">www.jumpingrivers.com/blog/r-parameterised-presentations-quarto</a></p></li>
+<li><p>Dynamic tabsets: <a href="https://josh.quarto.pub/posts/2022-11-10-quarto-tabsets-update/2022-11-10-quarto-tabsets-update.html">josh.quarto.pub/posts/2022-11-10-quarto-tabsets-update</a></p></li>
 <li><p>Data science resources: <a href="https://nrennie.rbind.io/data-science-resources/">nrennie.rbind.io/data-science-resources</a></p></li>
 </ul>
+<section id="collaborative-editing" class="level3">
+<h3 class="anchored" data-anchor-id="collaborative-editing">Collaborative editing</h3>
+<p>A frequently asked question from those thinking about switching to Quarto, is how do they collaborate with (non-technical) colleagues who prefer to use tools like Word/Gooogle Docs with track changes? Here are a few options you may find useful:</p>
+<ul>
+<li><p><a href="https://claudiozandonella.github.io/trackdown/">trackdown</a>: R package for collaborative writing and editing of R Markdown or Quarto documents in Google Docs.</p></li>
+<li><p><a href="https://github.com/andjar/quartorium">Quartorium</a>: a collaborative WYSIWYG editor for Quarto</p></li>
+<li><p><a href="https://quarto.org/docs/blog/posts/2026-04-06-whats-next-quarto-2/">Quarto 2</a>: although not yet available, the developers of Quarto are working on a developing a new version of Quarto which will have an in-built collaborative editor to solve this problem!</p></li>
+</ul>
+</section>
+</section>
+<section id="questions" class="level2">
+<h2 class="anchored" data-anchor-id="questions">Questions</h2>
+<p><strong>When rendering multiple reports, can I map over multiple (dependent) parameters where only some combinations of the parameters are desired?</strong></p>
+<p>Yes, you can! As long as you have a way of defining what those combinations of parameters are. For example, this selects some different combinations of years and continents from the <code>gapminder</code> dataset:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>params_df <span class="ot">&lt;-</span> gapminder <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2002</span>, <span class="dv">2007</span>) <span class="sc">&amp;</span> continent <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Europe"</span>) <span class="sc">|</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1952</span>, <span class="dv">1957</span>) <span class="sc">&amp;</span> continent <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Asia"</span>, <span class="st">"Americas"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(continent, year) <span class="sc">|&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You can then use <code>walk()</code> from {purrr} in a similar way to the examples, but mapping over each row of your parameter data:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">walk</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">.x =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(params_df),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">.f =</span> <span class="sc">~</span> <span class="fu">quarto_render</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">input =</span> <span class="st">"example.qmd"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">output_file =</span> <span class="fu">glue</span>(<span class="st">"{params_df$continent[.x]}_{params_df$year[.x]}.html"</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">execute_params =</span> <span class="fu">list</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">choose_continent =</span> params_df<span class="sc">$</span>continent[.x],</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">choose_year =</span> params_df<span class="sc">$</span>year[.x]</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>If my list of parameters is long, is there a nice way to see how long my code has left to run when generating multiple reports?</strong></p>
+<p>Yes, within <code>walk()</code>, set <code>.progress = TRUE</code> and this will create a progress bar in the console showing how far through your code is, and an approximate amount of time left. You can also use the <a href="https://cran.r-project.org/web/packages/beepr/index.html">{beepr}</a> package to get your laptop to beep when the code is finished!</p>
 
 
 </section>

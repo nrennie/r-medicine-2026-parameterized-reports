@@ -1065,8 +1065,8 @@ Solution
 <span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb18-68"><a href="#cb18-68" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-69"><a href="#cb18-69" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a>latest_begin <span class="ot">&lt;-</span> <span class="cf">if</span> (params<span class="sc">$</span>choose_year <span class="sc">==</span> <span class="dv">2007</span>) <span class="st">"::: {.content-visible}"</span></span>
-<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a>latest_end <span class="ot">&lt;-</span> <span class="cf">if</span> (params<span class="sc">$</span>choose_year <span class="sc">==</span> <span class="dv">2007</span>) <span class="st">":::"</span></span>
+<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a>latest_begin <span class="ot">&lt;-</span> <span class="cf">if</span> (params<span class="sc">$</span>choose_year <span class="sc">!=</span> <span class="dv">2007</span>) <span class="st">"::: {.content-hidden}"</span></span>
+<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a>latest_end <span class="ot">&lt;-</span> <span class="cf">if</span> (params<span class="sc">$</span>choose_year <span class="sc">!=</span> <span class="dv">2007</span>) <span class="st">":::"</span></span>
 <span id="cb18-72"><a href="#cb18-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb18-73"><a href="#cb18-73" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-74"><a href="#cb18-74" aria-hidden="true" tabindex="-1"></a><span class="in">`r latest_begin`</span></span>
@@ -1085,8 +1085,8 @@ Solution
 </summary>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>last_year <span class="ot">&lt;-</span> <span class="fu">max</span>(gapminder<span class="sc">$</span>year)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>latest_begin <span class="ot">&lt;-</span> <span class="cf">if</span> (params<span class="sc">$</span>choose_year <span class="sc">==</span> last_year) <span class="st">"::: {.content-visible}"</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>latest_end <span class="ot">&lt;-</span> <span class="cf">if</span> (params<span class="sc">$</span>choose_year <span class="sc">==</span> last_year) <span class="st">":::"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>latest_begin <span class="ot">&lt;-</span> <span class="cf">if</span> (params<span class="sc">$</span>choose_year <span class="sc">!=</span> last_year) <span class="st">"::: {.content-hidden}"</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>latest_end <span class="ot">&lt;-</span> <span class="cf">if</span> (params<span class="sc">$</span>choose_year <span class="sc">!=</span> last_year) <span class="st">":::"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </details>
 </section>

@@ -50,6 +50,8 @@ params_df <- gapminder |>
 You can then use `walk()` from {purrr} in a similar way to the examples, but mapping over each row of your parameter data:
 
 ```{r}
+#| eval: false
+#| echo: true
 walk(
   .x = 1:nrow(params_df),
   .f = ~ quarto_render(
